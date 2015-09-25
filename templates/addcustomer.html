@@ -1,0 +1,30 @@
+{% extends 'template.html' %}
+<!--Body Block-->
+{% block body_block %}
+{% load widget_tweaks %}
+ {% if user.is_authenticated %}
+{% if Message %}
+    <div class="alert alert-success fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>{{ Message }}</strong>
+</div>
+{% elif ErrorMessage %}
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>{{ ErrorMessage }}!</strong>
+    </div>
+{% endif %}
+
+         <div class="row placeholders">
+            <div class="col-xs-12 col-sm-6 placeholder">
+                <form  name="add customer" method="post" action="/addcustomer/">
+            {% csrf_token %}
+            {{ form.customer_name | attr:"class:form-control" | attr:"placeholder:إسم العميل" | attr:"id:customer_name" }}
+            <div>
+                                <input type="submit" class="form-control" value="إضافة">
+            </div>
+                </form>
+            </div>
+          </div>
+                                                        {% endif %}
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'template.html' %}
+<!--Body Block-->
+{% block body_block %}
+{% load widget_tweaks %}
+ {% if user.is_authenticated %}
+                        <div id="items">
+
+{% if Message %}
+
+<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+{{ Message }}
+    {% elif ErrorMessage %}
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>{{ ErrorMessage }}!</strong>
+    </div>
+    {% elif product_id %}
+     <center>
+    <table border="1" id="LatestTable">
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Category</td>
+                <td>Store</td>
+                <td>Count</td>
+                <td>Price</td>
+                <td>Sell Price</td>
+                <td>Created by</td>
+                <td>Created At</td>
+            </tr>
+                <tr>
+                    <td>{{ product_id }}</td>
+                    <td>{{ product_name }}</td>
+                    <td>{{ product_category }}</td>
+                    <td>{{ product_store }}</td>
+                    <td>{{ product_count }}</td>
+                    <td>{{ product_price }}</td>
+                    <td>{{ product_sell }}</td>
+                    <td>{{ created_by }}</td>
+                    <td>{{ created_at }}</td>
+                </tr>
+        </table>
+</center>
+
+    {% elif Products %}
+        <center>
+        <table border="1" id="">
+                                    <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Category</td>
+                <td>Store</td>
+                <td>Count</td>
+                <td>Price</td>
+                <td>Sell Price</td>
+                <td>Date</td>
+                <td>Created By</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% for Product in Products %}
+                <tr>
+                    <td>{{ Product.product_id }}</td>
+                    <td>{{ Product.product_name }}</td>
+                    <td>{{ Product.product_category }}</td>
+                    <td>{{ Product.product_store }}</td>
+                    <td>{{ Product.product_count }}</td>
+                    <td>{{ Product.product_price }}</td>
+                    <td>{{ Product.product_sell }}</td>
+                    <td>{{ Product.created_at }}</td>
+                    <td>{{ Product.created_by }}</td>
+                     <td><input type="button" value="عرض"  id="/viewproduct/{{ Product.product_id }}" class="view btn btn-default" name="{{ Product.product_id }}"  /> </td>
+                    <td><input type="button" value="حذف"  id="/delete/product/{{ Product.product_id }}" class="delete btn btn-default" name="{{ Product.product_id }}"  /> </td>
+                    <td><input type="button" value="تعديل"  id="/edit/{{ Product.product_id }}" class="edit btn btn-default " name="{{ Product.product_id }}" /> </td>
+                </tr>
+         {% endfor %}
+        </table>
+        </center>
+{% endif %}
+
+     </div>
+                            {% endif %}
+{% endblock %}

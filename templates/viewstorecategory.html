@@ -1,0 +1,59 @@
+{% extends 'template.html' %}
+<!--Body Block-->
+{% block body_block %}
+{% load widget_tweaks %}
+                        <div id="items">
+ {% if user.is_authenticated %}
+{% if Message %}
+<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+{{ Message }}
+    {% elif ErrorMessage %}
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>{{ ErrorMessage }}!</strong>
+    </div>
+    {% elif category_id %}
+    <center>
+    <table border="1" id="LatestTable">
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Created By</td>
+            </tr>
+                <tr>
+                    <td>{{ category_id }}</td>
+                    <td>{{ category_name }}</td>
+                    <td>{{ created_by }}</td>
+                </tr>
+        </table>
+</center>
+    {% elif Categories %}
+    <center>
+        <table border="1" id="">
+                                    <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Created By</td>
+                <td>Created At</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% for Category in Categories %}
+                <tr>
+                    <td>{{ Category.category_id }}</td>
+                    <td>{{ Category.category_name }}</td>
+                    <td>{{ Category.created_by }}</td>
+                    <td>{{ Category.created_at }}</td>
+                    <td><input type="button" value="حذف"  id="/delete/store/category/{{ Category.category_id }}" class="delete btn btn-default" name="{{ Category.category_id }}"  /> </td>
+                    <td><input type="button" value="تعديل"  id="/edit/{{ Category.category_id }}" class="edit btn btn-default " name="{{ Category.category_id }}" /> </td>
+                </tr>
+         {% endfor %}
+        </table>
+        </center>
+{% endif %}
+                                   </div>
+                                                        {% endif %}
+{% endblock %}
+
+

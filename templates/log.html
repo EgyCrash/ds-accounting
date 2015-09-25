@@ -1,0 +1,43 @@
+{% extends 'template.html' %}
+<!--Body Block-->
+{% block body_block %}
+{% load widget_tweaks %}
+ {% if user.is_authenticated %}
+                        <div id="items">
+
+{% if Message %}
+<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+{{ Message }}
+    {% elif ErrorMessage %}
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>{{ ErrorMessage }}!</strong>
+    </div>
+    {% elif Logs %}
+    <center>
+    <table border="1" id="">
+                                    <tr>
+                <td>ID</td>
+                <td>Event</td>
+                 <td>Description</td>
+                <td>By</td>
+                <td>Date</td>
+            </tr>
+        {% for Log in Logs %}
+                <tr>
+                    <td>{{ Log.log_id }}</td>
+                    <td>{{ Log.log_event }}</td>
+                    <td>{{ Log.log_disc }}</td>
+                    <td>{{ Log.log_by }}</td>
+                    <td>{{ Log.log_date }}</td>
+
+                </tr>
+         {% endfor %}
+        </table>
+    </center>
+{% endif %}
+                                   </div>
+
+                                                        {% endif %}
+{% endblock %}

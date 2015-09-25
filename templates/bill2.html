@@ -1,0 +1,10 @@
+{% extends 'template.html' %}
+<!--Body Block-->
+{% block body_block %}
+{% load widget_tweaks %}
+{% for product in Products %}
+    <b>{{ product }}</b> </br>
+{% endfor %}
+    <b>{{ Products }}</b> </br>
+
+{% endblock %}

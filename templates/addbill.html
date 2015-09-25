@@ -1,0 +1,59 @@
+{% extends 'template.html' %}
+{% load staticfiles %}
+<!--Body Block-->
+{% block body_block %}
+{% load widget_tweaks %}
+ {% if user.is_authenticated %}
+{% if Message %}
+    <div class="alert alert-success fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>{{ Message }}</strong>
+</div>
+{% elif ErrorMessage %}
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>{{ ErrorMessage }}!</strong>
+    </div>
+{% endif %}
+{{ theget }}
+<form method="post" action="/addbill/" name="myform" id="myfor">
+    {% csrf_token %}
+<label for="customer_name">Customer Name:</label>
+<input type="text" id="customer_name" name="customer_name"></br></br>
+    <table id='TextBoxesGroup'>
+        <tr>
+            <td></td>
+            <td>Product</td>
+            <td>Price</td>
+            <td>Available Items</td>
+            <td>Sell Price</td>
+            <td>Count Of Items</td>
+            <td>Total</td>
+        </tr>
+        <tr>
+            <td><label for="1">1 : </label></td>
+            <td><input type='textbox' id='1' class="product" name="product_1"></td>
+            <td><input type='textbox' id='price_1' class="price" name="price_1" value="" readonly></td>
+            <td><input type='textbox' id='available_1' class="" name="available_1" value="" readonly></td>
+            <td><input type='textbox' id='sell_1' class="number sell" name="sell_1" value="" ></td>
+            <td><input type='textbox' id='count_1' class="number count" name="count_1" value="" ></td>
+            <td><input type='textbox' id='total_1' class="total" name="total_1" value="" readonly></td>
+        </tr>
+
+        <tr id="total_price" class="total_price">
+            <td></td>
+            <td><a href="/addbill/?item=10">More Items</a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="textbox" name="all_total" class="all_total" id="all_total" readonly></td>
+        </tr>
+        </table>
+    <input type="button" id="addButton" name="addButton" value="Add Item">
+    <input type="button" id="removeButton" name="removeButton" value="Remove Item">
+    <input type="hidden" name="bill_id" value=" {{ Bill_ID }}">
+    <input type="submit" value="POST" form="myfor">
+</form>
+{% endif %}
+{% endblock %}

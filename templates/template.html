@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html dir="{{ Settings.Lang.dir }}">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>{% block title %}    {{ Settings.Title }}     {% endblock %}</title>
+        <!--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>-->
+<!--<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>-->
+        {% load staticfiles %}
+            <!--<script src="{% static "js/jquery-1.9.1.js" %}"></script>-->
+            <script src="{% static "js/jquery-2.1.4.min.js" %}"></script>
+            <script src="{% static "js/jquery-ui.js" %}"></script>
+            <script src="{% static "js/autocomplete.js" %}"></script>
+            <script src="{% static "js/functions.js" %}"></script>
+            <script src="{% static "js/jquery.form.js" %}"></script>
+            <script src="{% static "js/bootstrap.min.js" %}"></script>
+            <!--<script src="{% static "js/jquery.auto-complete.min.js" %}"></script>-->
+            <link rel="stylesheet" href="{% static "css/bootstrap-3.3.4-dist/css/bootstrap.min.css" %}">
+            <link rel="stylesheet" href="{% static "css/autocomplete.css" %}">
+            <link rel="stylesheet" href="{% static "css/custom.css" %}">
+            <link rel="stylesheet" href="{% static "css/jquery-ui.css" %}">
+            <link rel="stylesheet" href="{% static "css/jquery-ui.structure.css" %}">
+            <!--<link rel="stylesheet" href="{% static "css/jquery.auto-complete.css" %}">-->
+                <style>
+                    @font-face {
+                    font-family: JF-Flat;
+                    src: url({% static "fonts/JF-Flat-regular.ttf" %});
+                    }
+                    body {
+                    font-family: "JF-Flat";
+                    }
+                    ul {
+                    -moz-transform: rotate({{ Settings.Lang.rotate }});
+                    -webkit-transform: rotate({{ Settings.Lang.rotate }});
+                    transform: rotate({{ Settings.Lang.rotate }});
+                    }
+                    ul > li {
+                    -moz-transform: rotate(-{{ Settings.Lang.rotate }});
+                    -webkit-transform: rotate(-{{ Settings.Lang.rotate }});
+                    transform: rotate(-{{ Settings.Lang.rotate }});
+                    }
+                </style>
+   </head>
+    <body>
+    <!--Header Block-->
+        <div class="brand">Digital Solutions</div>
+        {% block header_block %}
+            <!--Header Content Here-->
+       <nav class="navbar navbar-default buttons" role="navigation">
+        <div class="container ">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse  " id="bs-example-navbar-collapse-1" >
+                            <ul class="nav navbar-nav ">
+                              {% if user.is_authenticated %}
+                                  <li class="dropdown ">
+                                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ Settings.Lang.bills }} <b class="caret"></b></a>
+                                    <ul role="menu" class="dropdown-menu">
+                                        <li><a href="/addbill/">{{ Settings.Lang.new }}</a></li>
+                                        <li><a href="#">{{ Settings.Lang.edit }}</a></li>
+                                        <li><a href="#">{{ Settings.Lang.search }}</a></li>
+                                    </ul>
+                                </li>
+                                 <li class="dropdown ">
+                                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ Settings.Lang.customers }} <b class="caret"></b></a>
+                                    <ul role="menu" class="dropdown-menu">
+                                        <li><a href="/addcustomer/">{{ Settings.Lang.new }} </a></li>
+                                        <li><a href="/viewcustomer/all/"> {{ Settings.Lang.all_customers }} </a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ Settings.Lang.products }} <b class="caret"></b></a>
+                                    <ul role="menu" class="dropdown-menu">
+                                        <li><a href="/addproduct/">{{ Settings.Lang.new }}</a></li>
+                                        <li><a href="/viewproduct/all/">ِ{{ Settings.Lang.all_products }}</a></li>
+                                        <li class="divider">{{ Settings.Lang.categories }}</li>
+                                        <li><a href="/addproductcategory/">{{ Settings.Lang.new }}</a></li>
+                                        <li><a href="/viewproductcategory/all/">{{ Settings.Lang.all_categories }}</a></li>
+                                    </ul>
+                                </li>
+                                  <li class="dropdown">
+                                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ Settings.Lang.stores }} <b class="caret"></b></a>
+                                    <ul role="menu" class="dropdown-menu">
+                                        <li><a href="/addstore/">{{ Settings.Lang.new }}</a></li>
+                                        <li><a href="/viewstore/all/">ِ{{ Settings.Lang.all_stores }}</a></li>
+                                        <li class="divider">{{ Settings.Lang.categories }}</li>
+                                        <li><a href="/addstorecategory/">{{ Settings.Lang.new }}</a></li>
+                                        <li><a href="/viewstorecategory/all/">{{ Settings.Lang.all_categories }}</a></li>
+                                    </ul>
+                                </li>
+                                 <li class=""><a href="#">{{ Settings.Lang.analyse }}</a></li>
+                                 <li class=""><a href="/log/">{{ Settings.Lang.logs }}</a></li>
+
+                                 <li class=""><a href="/admincp/">{{ Settings.Lang.admincp }}</a></li>
+
+                                 <li><a href="/logout/">{{ Settings.Lang.logout }}</a></li>
+                                {% else %}
+                                <li><a href="/login/">{{ Settings.Lang.login }}</a></li>
+                            </ul>
+                                 {% endif %}
+                </div>
+                        </div>
+                    </nav>
+    {% endblock %}
+    <!--Body Block-->
+        {% block top_body_block %}
+    <div class="container">
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12 ">
+                    {% endblock %}
+                    {% block body_block %}
+                    {% endblock %}
+                    {% block down_body_block %}
+                </div>
+            </div>
+        </div>
+    </div>
+        {% endblock %}
+    <!--Footer Block-->
+        <!--{% block footer_block %}-->
+  <!--<footer>-->
+        <!--<div class="container ">-->
+            <!--<div class="row ">-->
+                <!--<div class="col-lg-12 text-center ">-->
+                    <!--<p>Copyright &copy; Digital Solutions Design By  BaLaMiTa</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</footer>-->
+        <!--{% endblock %}-->
+    </body>
+</html>

@@ -1,0 +1,35 @@
+from django.conf.urls import patterns, include, url
+from django.contrib import admin
+from acc import views
+
+admin.autodiscover()
+urlpatterns = patterns('',
+    # url(r'^autocomplete/', include('autocomplete_light.urls')),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', views.index, name='Index'),
+    url(r'^login', views.user_login, name='Login'),
+    url(r'^accounts/login', views.user_login, name='Login'),
+    url(r'^logout', views.user_logout, name='Logout'),
+    url(r'^log', views.log, name='Logs'),
+    url(r'^addproductcategory', views.product_category_add, name='Add Product Category'),
+    url(r'^viewproductcategory/(?P<category_id>\w+)/$', views.product_category_view, name='View Product Category'),
+    url(r'^delete/product/category/(?P<category_id>\w+)/$', views.product_category_delete, name='Delete Product Category'),
+    url(r'^addstorecategory', views.store_category_add, name='Add Store Category'),
+    url(r'^viewstorecategory/(?P<category_id>\w+)/$', views.store_category_view, name='View Store Category'),
+    url(r'^delete/store/category/(?P<category_id>\w+)/$', views.store_category_delete, name='Delete Store Category'),
+    url(r'^addstore', views.store_add, name='Add Store'),
+    url(r'^viewstore/(?P<store_id>\w+)/$', views.store_view, name='View Store'),
+    url(r'^delete/store/(?P<store_id>\w+)/$', views.store_delete, name='Delete Store'),
+    url(r'^addcustomer', views.customer_add, name='Add Customer'),
+    url(r'^viewcustomer/(?P<customer_id>\w+)/$', views.customer_view, name='View Customer'),
+    url(r'^delete/customer/(?P<customer_id>\w+)/$', views.customer_delete, name='Delete Customer'),
+    url(r'^addproduct', views.product_add, name='Add Product'),
+    url(r'^viewproduct/(?P<product_id>\w+)/$', views.product_view, name='View Product'),
+    url(r'^delete/product/(?P<product_id>\w+)/$', views.product_delete, name='Delete Product'),
+    #url(r'^viewproduct/(?P<product_id>\d+)/$', views.product_view , name='View Product'),
+    url(r'^autocompleteproduct/$', views.auto_complete_product, name='Auto Complete Product'),
+    url(r'^autocompletecustomer/$', views.auto_complete_customer, name='Auto Complete Customer'),
+    url(r'^addbill', views.add_bill, name='Add Bill'),
+    url(r'^admincp', views.admincp, name='Admin Control Panell'),
+    # url(r'^edituser', views.user_edit, name='Edit User'),
+)

@@ -1,0 +1,62 @@
+{% extends 'template.html' %}
+<!--Body Block-->
+{% block body_block %}
+{% load widget_tweaks %}
+ {% if user.is_authenticated %}
+                        <div id="items">
+
+{% if Message %}
+<div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+{{ Message }}
+    {% elif ErrorMessage %}
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>{{ ErrorMessage }}!</strong>
+    </div>
+    {% elif customer_id %}
+    <center>
+    <table border="1" id="LatestTable">
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Creating Date</td>
+                <td>Created By</td>
+            </tr>
+                <tr>
+                    <td>{{ customer_id }}</td>
+                    <td>{{ customer_name }}</td>
+                    <td>{{ created_at }}</td>
+                    <td>{{ created_by }}</td>
+                </tr>
+        </table>
+</center>
+    {% elif Customers %}
+    <center>
+    <table border="1" id="">
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                 <td>Creating Date</td>
+                <td>Created By</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% for Customer in Customers %}
+                <tr>
+                    <td>{{ Customer.customer_id }}</td>
+                    <td>{{ Customer.customer_name }}</td>
+                    <td>{{ Customer.created_at }}</td>
+                    <td>{{ Customer.created_by }}</td>
+                    <td><input type="button" value="عرض"  id="/viewcustomer/{{ Customer.customer_id }}" class="view btn btn-default" name="{{ Customer.customer_id }}"  /> </td>
+                    <td><input type="button" value="حذف"  id="/delete/customer/{{ Customer.customer_id }}" class="delete btn btn-default" name="{{ Customer.customer_id }}"  /> </td>
+                    <td><input type="button" value="تعديل"  id="/edit/customer/{{ Customer.customer_id }}" class="edit btn btn-default " name="{{ Customer.customer_id }}" /> </td>
+                </tr>
+         {% endfor %}
+        </table>
+    </center>
+{% endif %}
+                                   </div>
+
+                                                        {% endif %}
+{% endblock %}

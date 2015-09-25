@@ -1,0 +1,203 @@
+html, body {
+  height: 100%;
+}
+
+.jumbotron.vertical-center {
+  margin-bottom: 0; /* Remove the default bottom margin of .jumbotron */
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for vh unit */
+  min-height: 100vh; /* You might also want to use
+                        'height' property instead.
+
+                        Note that for percentage values of
+                        'height' or 'min-height' properties,
+                        the 'height' of the parent element
+                        should be specified explicitly.
+
+                        In this case the parent of '.vertical-center'
+                        is the <body> element */
+
+  /* Make it a flex container */
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  /* Align the bootstrap's container vertically */
+    -webkit-box-align : center;
+  -webkit-align-items : center;
+       -moz-box-align : center;
+       -ms-flex-align : center;
+          align-items : center;
+
+  /* In legacy web browsers such as Firefox 9
+     we need to specify the width of the flex container */
+  width: 100%;
+
+  /* Also 'margin: 0 auto' doesn't have any effect on flex items in such web browsers
+     hence the bootstrap's container won't be aligned to the center anymore.
+
+     Therefore, we should use the following declarations to get it centered again */
+         -webkit-box-pack : center;
+            -moz-box-pack : center;
+            -ms-flex-pack : center;
+  -webkit-justify-content : center;
+          justify-content : center;
+}
+
+
+body {
+    background: gray;
+}
+
+.img-full {
+    min-width: 100%;
+}
+
+.tagline-divider {
+    margin: 15px auto 3px;
+    max-width: 250px;
+    border-color: #999999;
+}
+
+.box {
+    margin-bottom: 20px;
+    padding: 30px 15px;
+    background: #fff;
+    background: rgba(255,255,255,0.9);
+}
+footer {
+    background: #fff;
+    background: rgba(255,255,255,0.9);
+          background-color: Black ;
+}
+
+.buttons {
+background-color:Black;
+}
+
+footer p {
+    margin: 0;
+    padding: 50px 0;
+      background-color: Black ;
+
+}
+
+@media screen and (min-width:768px) {
+    .brand {
+        display: inherit;
+        margin: 0;
+        padding: 30px 0 10px;
+        text-align: center;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        font-family: "JF-Flat";
+        font-size: 5em;
+        font-weight: 700;
+        line-height: normal;
+        color: #fff;
+    }
+
+.navbar-header {
+        display: none;
+    }
+
+    .navbar-nav {
+        display: table;
+        float: none;
+        margin: 0 auto;
+        table-layout: fixed;
+        font-size: 1.25em;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .box:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+.errmsg{
+color: red;
+}
+#backgroundPopup {
+    z-index:1;
+    position: fixed;
+    display:none;
+    height:100%;
+    width:100%;
+    background:#000000;
+    top:0px;
+    left:0px;
+}
+#toPopup {
+    font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 10px solid #ccc;
+    border-radius: 3px 3px 3px 3px;
+    color: #333333;
+    display: none;
+    font-size: 14px;
+    left: 50%;
+    margin-left: -410px;
+    position: fixed;
+    top: 20%;
+    width: 800px;
+    z-index: 2;
+}
+div.loader {
+    background: url("../img/loading.gif") no-repeat scroll 0 0 transparent;
+    height: 32px;
+    width: 32px;
+    display: none;
+    z-index: 9999;
+    top: 40%;
+    left: 50%;
+    position: absolute;
+    margin-left: -10px;
+}
+div.close {
+    background: url("../img/closebox.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 30px;
+    position: absolute;
+    right: -27px;
+    top: -24px;
+    width: 30px;
+}
+span.ecs_tooltip {
+    background: none repeat scroll 0 0 #000000;
+    border-radius: 2px 2px 2px 2px;
+    color: #FFFFFF;
+    display: none;
+    font-size: 11px;
+    height: 16px;
+    opacity: 0.7;
+    padding: 4px 3px 2px 5px;
+    position: absolute;
+    right: -62px;
+    text-align: center;
+    top: -51px;
+    width: 93px;
+}
+span.arrow {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid #000000;
+    display: block;
+    height: 1px;
+    left: 40px;
+    position: relative;
+    top: 3px;
+    width: 1px;
+}
+div#popup_content {
+    margin: 4px 7px;
+    /* remove this comment if you want scroll bar
+    overflow-y:scroll;
+    height:200px
+    */
+}

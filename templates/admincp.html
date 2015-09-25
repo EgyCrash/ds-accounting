@@ -1,0 +1,179 @@
+{% extends 'template.html' %}
+<!--Body Block-->
+{% block body_block %}
+{% load widget_tweaks %}
+{% if Message %}
+    <div class="alert alert-success fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>{{ Message }}</strong>
+</div>
+{% elif ErrorMessage %}
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>{{ ErrorMessage }}!</strong>
+    </div>
+{% endif %}
+{% if user.is_authenticated %}
+     <div class="row placeholders">
+        <div class="col-xs-12 col-sm-6 placeholder">
+            <b>Weclome {{ user.username }}</b>
+                <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#home">Users</a></li>
+              <li><a data-toggle="tab" href="#menu1">Profile</a></li>
+              <li><a data-toggle="tab" href="#menu2">Site Setting</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="home" class="tab-pane fade in active">
+
+<!--  Popup Div  -->
+    <a href="#" class="topopup">New User</a>
+    <div id="toPopup">
+    <div class="close"></div>
+        <span class="ecs_tooltip">Press Esc to close <span class="arrow"></span></span>
+        <div id="popup_content"> <!--your content start-->
+            <h3>Profile</h3>
+                <form  name="new user" method="post" action="/admincp/">
+                    {% csrf_token %}
+                    {{ new_user.username | attr:"class:form-control" | attr:"placeholder:Username" | attr:"id:username" }}
+                    {{ new_user.password | attr:"class:form-control" | attr:"placeholder:Password" | attr:"id:password" }}
+                    {{ new_user.email | attr:"class:form-control" | attr:"placeholder:Email" | attr:"id:email" }}
+                    {{ new_user.bill_perm | attr:"class:form-control" | attr:"placeholder:Bills Permission" | attr:"id:bill_perm" }}
+                    {{ new_user.product_perm | attr:"class:form-control" | attr:"placeholder:Product Permissions" | attr:"id:product_perm" }}
+                    {{ new_user.store_perm | attr:"class:form-control" | attr:"placeholder:Stores Permission" | attr:"id:store_perm" }}
+                    {{ new_user.customer_perm | attr:"class:form-control" | attr:"placeholder:Customer Permission" | attr:"id:customer_perm" }}
+                    {{ new_user.admin_perm | attr:"class:form-control" | attr:"placeholder:Admin Permission" | attr:"id:admin_perm" }}
+                    {{ new_user.first_name | attr:"class:form-control" | attr:"placeholder:First Name" | attr:"id:first_name" }}
+                    {{ new_user.last_name | attr:"class:form-control" | attr:"placeholder:Last Name" | attr:"id:last_name" }}
+                  {% if new_user %}
+                </select>
+                    </br>
+                    <label for="lang">Langauge</label>
+                    <select name ="lang" id="lang" class="dropdown-toggle">
+                    <option>Arabic</option>
+                    <option>English</option>
+                    </select>
+          <div>
+                <input type="submit" class="form-control" value="Create" name="new_user_btn">
+          </div>
+                    {{ profile_form.errors }}
+            </form>
+        </div> <!--your content end-->
+    </div> <!--toPopup end-->
+    <div class="loader"></div>
+    <div id="backgroundPopup"></div>
+<!--   End Of Popup Div  -->
+      </div>
+          <div id="menu1" class="tab-pane fade">
+            <h3>Profile</h3>
+                <form  name="edit user" method="post" action="/admincp/">
+                    {% csrf_token %}
+                    {{ profile_form.email | attr:"class:form-control" | attr:"placeholder:Email" | attr:"id:email" }}
+                    {{ profile_form.bill_perm | attr:"class:form-control" | attr:"placeholder:Bills Permission" | attr:"id:bill_perm" }}
+                    {{ profile_form.product_perm | attr:"class:form-control" | attr:"placeholder:Product Permissions" | attr:"id:product_perm" }}
+                    {{ profile_form.store_perm | attr:"class:form-control" | attr:"placeholder:Stores Permission" | attr:"id:store_perm" }}
+                    {{ profile_form.customer_perm | attr:"class:form-control" | attr:"placeholder:Customer Permission" | attr:"id:customer_perm" }}
+                    {{ profile_form.admin_perm | attr:"class:form-control" | attr:"placeholder:Admin Permission" | attr:"id:admin_perm" }}
+                    {{ profile_form.first_name | attr:"class:form-control" | attr:"placeholder:First Name" | attr:"id:first_name" }}
+                    {{ profile_form.last_name | attr:"class:form-control" | attr:"placeholder:Last Name" | attr:"id:last_name" }}
+                  {% if profile_form %}
+                </select>
+                    </br>
+                    <label for="lang">Langauge</label>
+                    <select name ="lang" id="lang" class="dropdown-toggle">
+                    <option>Arabic</option>
+                    <option>English</option>
+                    </select>
+          <div>
+                <input type="submit" class="form-control" value="ُEdit" name="profile_btn">
+          </div>
+                    {{ profile_form.errors }}
+            </form>
+              </div>
+              <div id="menu2" class="tab-pane fade">
+                <h3>Site Setting</h3>
+                <form  name="site settings" method="post" action="/admincp/">
+                    {% csrf_token %}
+                    {{ site_form.title | attr:"class:form-control" | attr:"placeholder:Site Title" | attr:"id:title" }}
+                    {{ site_form.email | attr:"class:form-control" | attr:"placeholder:Email" | attr:"id:email" }}
+                    {{ site_form.owner | attr:"class:form-control" | attr:"placeholder:Owner" | attr:"id:owner" }}
+                  {% if site_form  %}
+                </select>
+                    </br>
+                    <label for="sitestatus">Status</label>
+                    <select name ="sitestatus" id="sitestatus" class="dropdown-toggle">
+                    <option>Open</option>
+                    <option>Close</option>
+                    </select>
+                </select>
+                    </br>
+                    <label for="lang">Langauge</label>
+                    <select name ="lang" id="lang" class="dropdown-toggle">
+                    <option>Arabic</option>
+                    <option>English</option>
+                    </select>
+              <div>
+                            <input type="submit" class="form-control" value="ُEdit" name="site_btn">
+                  {% endif %}
+              </div>
+                    {% if site_form.errors %}
+    {% for field in site_form %}
+        {% for error in field.errors %}
+            <div class="alert alert-error">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in site_form.non_field_errors %}
+        <div class="alert alert-error">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+            </form>
+              </div>
+            </div>
+        </div>
+      </div>
+{% else %}
+    <b>You do not have permession</b>
+{% endif %}
+{% endif %}
+{% endif %}
+{% endblock %}
+
+
+        <b>Weclome {{ user.username }}</b>
+    <ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#home">Users</a></li>
+  <li><a data-toggle="tab" href="#menu1">Profile</a></li>
+  <li><a data-toggle="tab" href="#menu2">Site Setting</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="home" class="tab-pane fade in active">
+    <h3>Users</h3>
+    <p>Some content.</p>
+  </div>
+  <div id="menu1" class="tab-pane fade">
+    <h3>Profile</h3>
+    <p>Some content in menu 1.</p>
+  </div>
+  <div id="menu2" class="tab-pane fade">
+    <h3>Site Setting</h3>
+    <p>Some content in menu 2.</p>
+  </div>
+</div>
+
+
+
+        <!--<form name="profile" id="profile" action="/edituser/" method="post">-->
+        <!--<label for="username">Username</label>-->
+        <!--<input type="text" value="{{ user.username }}" id="username" ></br>-->
+        <!--<label for="lang">Language</label>-->
+        <!--<input type="text" value="{{ user.lang }}" id="lang"></br>-->
+        <!--<label for="email">Email</label>-->
+        <!--<input type="text" value="{{ user.email }}" id="email"></br>-->
+        <!--<label for="email">Permission</label>-->
+        <!--<input type="text" value="{{ user.perm }}" id="perm"></br>-->
+        <!--<input type="submit" value="Edite" >-->
+    <!--</form>-->

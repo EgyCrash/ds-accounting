@@ -1,0 +1,45 @@
+{% extends 'template.html' %}
+<!--Body Block-->
+{% block body_block %}
+{% load widget_tweaks %}
+ {% if user.is_authenticated %}
+{% if Message %}
+    <div class="alert alert-success fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>{{ Message }}</strong>
+</div>
+{% elif ErrorMessage %}
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>{{ ErrorMessage }}!</strong>
+    </div>
+{% endif %}
+         <div class="row placeholders">
+            <div class="col-xs-12 col-sm-6 placeholder">
+                <form  name="login" method="post" action="/addproduct/">
+            {% csrf_token %}
+            {{ form.product_name | attr:"class:form-control" | attr:"placeholder:إسم المنتج" | attr:"id:product_name" }}
+            {{ form.product_count | attr:"class:form-control" | attr:"placeholder:العدد" | attr:"id:product_count" }}
+            {{ form.product_price | attr:"class:form-control" | attr:"placeholder:سعر البيع" | attr:"id:product_price" }}
+            {{ form.product_sell | attr:"class:form-control" | attr:"placeholder:سعر الشراء" | attr:"id:product_sell" }}
+            {{ form.product_disc | attr:"class:form-control" | attr:"placeholder:وصف المنتج" | attr:"id:product_disc" }}
+                <label for="product_category">Category</label>
+            <select name ="product_category" id="product_category" class="dropdown-toggle">
+            {% for Category in Categories %}
+            <option>{{ Category.category_name }}</option>
+            {% endfor %}
+            </select>
+                    </br>
+                <label for="product_store">Store</label>
+                <select name ="product_store" id="product_store" class="dropdown-toggle">
+            {% for Store in Stores %}
+            <option>{{ Store.store_name }}</option>
+            {% endfor %}
+            </select>
+               </br>
+                <input type="submit" class="form-control" value="إضافة">
+        </form>
+            </div>
+          </div>
+           {% endif %}
+{% endblock %}

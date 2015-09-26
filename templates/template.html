@@ -51,14 +51,22 @@
             <div class="collapse navbar-collapse  " id="bs-example-navbar-collapse-1" >
                             <ul class="nav navbar-nav ">
                               {% if user.is_authenticated %}
+                                  {% if user.bill_perm == 1 or user.admin_perm == 7 %}
                                   <li class="dropdown ">
                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ Settings.Lang.bills }} <b class="caret"></b></a>
                                     <ul role="menu" class="dropdown-menu">
+                                        {% if user.bill_perm == 1 or user.admin_perm == 7 %}
                                         <li><a href="/addbill/">{{ Settings.Lang.new }}</a></li>
+                                        {% endif %}
+                                        {% if user.bill_perm == 2 or user.admin_perm == 7 %}
                                         <li><a href="#">{{ Settings.Lang.edit }}</a></li>
+                                        {% endif %}
+                                        {% if user.bill_perm == 2 or user.admin_perm == 7 %}
                                         <li><a href="#">{{ Settings.Lang.search }}</a></li>
+                                        {% endif %}
                                     </ul>
                                 </li>
+                                {% endif %}
                                  <li class="dropdown ">
                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ Settings.Lang.customers }} <b class="caret"></b></a>
                                     <ul role="menu" class="dropdown-menu">
@@ -88,9 +96,7 @@
                                 </li>
                                  <li class=""><a href="#">{{ Settings.Lang.analyse }}</a></li>
                                  <li class=""><a href="/log/">{{ Settings.Lang.logs }}</a></li>
-
                                  <li class=""><a href="/admincp/">{{ Settings.Lang.admincp }}</a></li>
-
                                  <li><a href="/logout/">{{ Settings.Lang.logout }}</a></li>
                                 {% else %}
                                 <li><a href="/login/">{{ Settings.Lang.login }}</a></li>

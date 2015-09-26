@@ -66,7 +66,7 @@ class Stores(models.Model):
     store_category = models.CharField( max_length=30)
     store_address = models.CharField(max_length=100)
     store_disc = models.CharField(max_length=200, default=None)
-    created_at = models.TimeField(auto_now=True, editable=False)
+    created_at = models.DateTimeField(auto_now=True, editable=False)
     created_by = models.CharField(max_length=30, editable=False)
 
 class UserModelManager(BaseUserManager):
@@ -86,13 +86,14 @@ class UserModelManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
 class UserModel(AbstractBaseUser):
     username = models.CharField(max_length=30, unique=True)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
     lang = models.CharField(max_length=10, blank=True)
     email = models.EmailField(blank=True)
+    created_at = models.DateTimeField(auto_now=True, editable=False)
+    created_by = models.CharField(max_length=30, editable=False)
     bill_perm = models.IntegerField(max_length=1, default=0)
     product_perm = models.IntegerField(max_length=1, default=0)
     store_perm = models.IntegerField(max_length=1, default=0)

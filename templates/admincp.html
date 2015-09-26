@@ -3,29 +3,67 @@
 {% block body_block %}
 {% load widget_tweaks %}
 {% if Message %}
-    <div class="alert alert-success fade in">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <strong>{{ Message }}</strong>
+<div class="alert alert-success fade in">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>{{ Message }}</strong>
 </div>
 {% elif ErrorMessage %}
-    <div class="alert alert-danger fade in">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        <strong>{{ ErrorMessage }}!</strong>
-    </div>
+<div class="alert alert-danger fade in">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>{{ ErrorMessage }}!</strong>
+</div>
 {% endif %}
 {% if user.is_authenticated %}
-     <div class="row placeholders">
-        <div class="col-xs-12 col-sm-6 placeholder">
-            <b>Weclome {{ user.username }}</b>
-                <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#home">Users</a></li>
-              <li><a data-toggle="tab" href="#menu1">Profile</a></li>
-              <li><a data-toggle="tab" href="#menu2">Site Setting</a></li>
-            </ul>
+ <div class="row placeholders">
+    <div class="col-xs-12 col-sm-6 placeholder">
+        <b>Weclome {{ user.username }}</b>
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#home">Users</a></li>
+          <li><a data-toggle="tab" href="#menu1">Profile</a></li>
+          <li><a data-toggle="tab" href="#menu2">Site Setting</a></li>
+        </ul>
             <div class="tab-content">
-              <div id="home" class="tab-pane fade in active">
-
-<!--  Popup Div  -->
+            <div id="home" class="tab-pane fade in active">
+                <table border="1" id="">
+                    <tr>
+                        <td>ID</td>
+                        <td>Username</td>
+                        <td>First Name</td>
+                        <td>Last Name</td>
+                        <td>Email</td>
+                        <td>Bill Permission</td>
+                        <td>Customer Permission</td>
+                        <td>Product Permission</td>
+                        <td>Store Permission</td>
+                        <td>Admin Permission</td>
+                        <td>Language</td>
+                         <td>Created At</td>
+                        <td>Created By</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {% for User in Users %}
+                    <tr>
+                        <td>{{ User.id }}</td>
+                        <td>{{ User.username }}</td>
+                        <td>{{ User.first_name }}</td>
+                        <td>{{ User.last_name }}</td>
+                        <td>{{ User.email }}</td>
+                        <td>{{ User.bill_perm }}</td>
+                        <td>{{ User.customer_perm }}</td>
+                        <td>{{ User.product_perm }}</td>
+                        <td>{{ User.store_perm }}</td>
+                        <td>{{ User.admin_perm }}</td>
+                        <td>{{ User.lang }}</td>
+                        <td>{{ User.created_at }}</td>
+                        <td>{{ User.created_by }}</td>
+                        <td><input type="button" value="عرض"  id="/viewcustomer/{{ Customer.customer_id }}" class="view btn btn-default" name="{{ Customer.customer_id }}"  /> </td>
+                        <td><input type="button" value="حذف"  id="/delete/customer/{{ Customer.customer_id }}" class="delete btn btn-default" name="{{ Customer.customer_id }}"  /> </td>
+                        <td><input type="button" value="تعديل"  id="/edit/customer/{{ Customer.customer_id }}" class="edit btn btn-default " name="{{ Customer.customer_id }}" /> </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+  <!--  Popup Div  -->
     <a href="#" class="topopup">New User</a>
     <div id="toPopup">
     <div class="close"></div>
@@ -140,15 +178,12 @@
 {% endif %}
 {% endif %}
 {% endblock %}
-
-
         <b>Weclome {{ user.username }}</b>
     <ul class="nav nav-tabs">
   <li class="active"><a data-toggle="tab" href="#home">Users</a></li>
   <li><a data-toggle="tab" href="#menu1">Profile</a></li>
   <li><a data-toggle="tab" href="#menu2">Site Setting</a></li>
 </ul>
-
 <div class="tab-content">
   <div id="home" class="tab-pane fade in active">
     <h3>Users</h3>
@@ -163,17 +198,3 @@
     <p>Some content in menu 2.</p>
   </div>
 </div>
-
-
-
-        <!--<form name="profile" id="profile" action="/edituser/" method="post">-->
-        <!--<label for="username">Username</label>-->
-        <!--<input type="text" value="{{ user.username }}" id="username" ></br>-->
-        <!--<label for="lang">Language</label>-->
-        <!--<input type="text" value="{{ user.lang }}" id="lang"></br>-->
-        <!--<label for="email">Email</label>-->
-        <!--<input type="text" value="{{ user.email }}" id="email"></br>-->
-        <!--<label for="email">Permission</label>-->
-        <!--<input type="text" value="{{ user.perm }}" id="perm"></br>-->
-        <!--<input type="submit" value="Edite" >-->
-    <!--</form>-->

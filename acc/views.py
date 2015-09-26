@@ -546,8 +546,9 @@ def add_bill(request):
 def admincp(request):
     settings = site_settings(request)
     admin_perm = request.user.admin_perm
-    if request.POST:
-        if admin_perm is 7:
+    users = UserModel.objects.order_by('id')
+    if admin_perm is 7:
+        if request.POST:
             profile_form = UserEdit(request.POST)
             site_form = SiteSettingsForm(request.POST)
             new_user = UserAdd(request.POST)
@@ -578,19 +579,19 @@ def admincp(request):
                         message = settings['Lang']['edited_success']
                         profile_form = UserEdit()
                         site_form = SiteSettingsForm()
-                        return render(request, 'admincp.html', {'Message': message, 'profile_form': profile_form, 'site_form':site_form, 'new_user':new_user, 'Settings': settings})
+                        return render(request, 'admincp.html', {'Message': message, 'profile_form': profile_form, 'site_form':site_form, 'new_user':new_user, 'Settings': settings, 'Users':users})
                     else:
                         error_message = settings['Lang']['error']
                         profile_form = UserEdit()
                         site_form = SiteSettingsForm()
                         new_user = UserAdd()
-                        return render(request, 'admincp.html', {'ErrorMessage': error_message, 'profile_form': profile_form, 'site_form':site_form , 'new_user':new_user, 'Settings': settings})
+                        return render(request, 'admincp.html', {'ErrorMessage': error_message, 'profile_form': profile_form, 'site_form':site_form , 'new_user':new_user, 'Settings': settings, 'Users':users})
                 else:
                     error_message = settings['Lang']['error']+2
                     profile_form = UserEdit()
                     site_form = SiteSettingsForm()
                     new_user = UserAdd()
-                    return render(request, 'admincp.html', {'ErrorMessage': error_message, 'profile_form': profile_form, 'site_form':site_form, 'new_user':new_user, 'Settings': settings})
+                    return render(request, 'admincp.html', {'ErrorMessage': error_message, 'profile_form': profile_form, 'site_form':site_form, 'new_user':new_user, 'Settings': settings, 'Users':users})
             elif 'site_btn' in request.POST:
                 if site_form.is_valid():
                     username = request.user.username
@@ -611,13 +612,13 @@ def admincp(request):
                             profile_form = UserEdit()
                             site_form = SiteSettingsForm()
                             new_user = UserAdd()
-                            return render(request, 'admincp.html', {'Message': message, 'profile_form': profile_form, 'site_form': site_form, 'new_user':new_user, 'Settings': settings})
+                            return render(request, 'admincp.html', {'Message': message, 'profile_form': profile_form, 'site_form': site_form, 'new_user':new_user, 'Settings': settings, 'Users':users})
                         else:
                             error_message = settings['Lang']['error']
                             profile_form = UserEdit()
                             site_form = SiteSettingsForm()
                             new_user = UserAdd()
-                            return render(request, 'admincp.html', {'ErrorMessage': error_message, 'profile_form': profile_form, 'site_form': site_form, 'new_user':new_user, 'Settings': settings})
+                            return render(request, 'admincp.html', {'ErrorMessage': error_message, 'profile_form': profile_form, 'site_form': site_form, 'new_user':new_user, 'Settings': settings, 'Users':users})
                     else:
                         email = profile_form.cleaned_data['email']
                         owner = profile_form.cleaned_data['owner']
@@ -635,7 +636,7 @@ def admincp(request):
                         profile_form = UserEdit()
                         site_form = SiteSettingsForm()
                         new_user = UserAdd()
-                        return render(request, 'admincp.html', {'Message': message , 'profile_form': profile_form, 'site_form': site_form, 'new_user':new_user, 'Settings': settings})
+                        return render(request, 'admincp.html', {'Message': message , 'profile_form': profile_form, 'site_form': site_form, 'new_user':new_user, 'Settings': settings, 'Users':users})
             elif 'new_user_btn' in request.POST:
                 if new_user.is_valid():
                     username = new_user.cleaned_data['username']
@@ -658,7 +659,9 @@ def admincp(request):
                         customer_perm=customer_perm,
                         admin_perm=admin_perm,
                         first_name=first_name,
-                        last_name=last_name
+                        last_name=last_name,
+                        lang=lang,
+                        created_by=request.user.username,
                     )
                     user = UserModel.objects.get(username=username)
                     user.set_password(password)
@@ -667,20 +670,21 @@ def admincp(request):
                     profile_form = UserEdit()
                     site_form = SiteSettingsForm()
                     new_user=UserAdd()
-                    return render(request, 'admincp.html', {'Message': message, 'profile_form': profile_form, 'site_form':site_form, 'new_user':new_user, 'Settings': settings})
+                    return render(request, 'admincp.html', {'Message': message, 'profile_form': profile_form, 'site_form':site_form, 'new_user':new_user, 'Settings': settings, 'Users':users})
                 else:
                     error_message = settings['Lang']['error']
                     profile_form = UserEdit()
                     site_form = SiteSettingsForm()
                     new_user = UserAdd()
-                    return render(request, 'admincp.html', {'ErrorMessage': error_message, 'profile_form': profile_form, 'site_form':site_form, 'new_user':new_user, 'Settings': settings})
-            elif 'site_btn' in request.POST:
-                return none
+                    return render(request, 'admincp.html', {'ErrorMessage': error_message, 'profile_form': profile_form, 'site_form':site_form, 'new_user':new_user, 'Settings': settings, 'Users':users})
+        else:
+            profile_form = UserEdit()
+            site_form = SiteSettingsForm()
+            new_user = UserAdd()
+            return render(request, 'admincp.html', {'profile_form': profile_form, 'site_form': site_form, 'new_user':new_user, 'Settings': settings, 'Users':users})
     else:
-        profile_form = UserEdit()
-        site_form = SiteSettingsForm()
-        new_user = UserAdd()
-        return render(request, 'admincp.html', {'profile_form': profile_form, 'site_form': site_form, 'new_user':new_user, 'Settings': settings})
+        error_message = settings['Lang']['no_perm']
+        return render(request, 'admincp.html', {'ErrorMessage': error_message,'Settings': settings})
 
 def user_logout(request):
         logout(request)

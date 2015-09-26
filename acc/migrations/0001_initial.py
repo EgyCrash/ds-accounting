@@ -22,6 +22,8 @@ class Migration(migrations.Migration):
                 ('last_name', models.CharField(max_length=30, blank=True)),
                 ('lang', models.CharField(max_length=10, blank=True)),
                 ('email', models.EmailField(max_length=75, blank=True)),
+                ('created_at', models.DateTimeField(auto_now=True)),
+                ('created_by', models.CharField(max_length=30, editable=False)),
                 ('bill_perm', models.IntegerField(default=0, max_length=1)),
                 ('product_perm', models.IntegerField(default=0, max_length=1)),
                 ('store_perm', models.IntegerField(default=0, max_length=1)),
@@ -38,10 +40,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('bill_id', models.AutoField(serialize=False, primary_key=True)),
                 ('bill_number', models.IntegerField(unique=True, max_length=30, editable=False)),
-                ('created_at', models.TimeField(editable=False)),
+                ('created_at', models.TimeField(auto_now=True)),
                 ('bill_total', models.IntegerField(max_length=30)),
                 ('bill_customer', models.CharField(max_length=30)),
-                ('bill_modified', models.DateField(auto_now=True)),
+                ('bill_modified', models.DateTimeField(auto_now=True)),
                 ('created_by', models.CharField(max_length=30, editable=False)),
             ],
             options={
@@ -155,7 +157,7 @@ class Migration(migrations.Migration):
                 ('store_category', models.CharField(max_length=30)),
                 ('store_address', models.CharField(max_length=100)),
                 ('store_disc', models.CharField(default=None, max_length=200)),
-                ('created_at', models.TimeField(auto_now=True)),
+                ('created_at', models.DateTimeField(auto_now=True)),
                 ('created_by', models.CharField(max_length=30, editable=False)),
             ],
             options={

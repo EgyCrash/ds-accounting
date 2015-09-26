@@ -525,6 +525,9 @@ def add_bill(request):
                     sell_price=sell,
                     total=total,
                 )
+                get_product = Products.objects.get(product_name=product)
+                get_product.product_count = int(get_product.product_count) - int(count)
+                get_product.save()
         Bills.objects.create(
             bill_number=request.POST['bill_id'],
             bill_total=request.POST['all_total'],

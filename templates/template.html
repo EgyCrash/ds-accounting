@@ -67,23 +67,33 @@
                                     </ul>
                                 </li>
                                 {% endif %}
-                                 <li class="dropdown ">
+                                {% if user.customer_perm == 1 or user.admin_perm == 7 %}
+                                <li class="dropdown ">
                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ Settings.Lang.customers }} <b class="caret"></b></a>
                                     <ul role="menu" class="dropdown-menu">
+                                        {% if user.customer_perm == 1 or user.admin_perm == 7 %}
                                         <li><a href="/addcustomer/">{{ Settings.Lang.new }} </a></li>
+                                        {% endif %}
+                                        {% if user.customer_perm == 1 or user.admin_perm == 7 %}
                                         <li><a href="/viewcustomer/all/"> {{ Settings.Lang.all_customers }} </a></li>
+                                        {% endif %}
                                     </ul>
                                 </li>
+                                {% endif %}
+                                {% if user.product_perm == 1 or user.admin_perm == 7 %}
                                 <li class="dropdown">
                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ Settings.Lang.products }} <b class="caret"></b></a>
                                     <ul role="menu" class="dropdown-menu">
+                                         {% if user.product_perm == 1 or user.admin_perm == 7 %}
                                         <li><a href="/addproduct/">{{ Settings.Lang.new }}</a></li>
                                         <li><a href="/viewproduct/all/">ِ{{ Settings.Lang.all_products }}</a></li>
                                         <li class="divider">{{ Settings.Lang.categories }}</li>
                                         <li><a href="/addproductcategory/">{{ Settings.Lang.new }}</a></li>
                                         <li><a href="/viewproductcategory/all/">{{ Settings.Lang.all_categories }}</a></li>
+                                        {% endif %}
                                     </ul>
                                 </li>
+                                {% endif %}
                                   <li class="dropdown">
                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ Settings.Lang.stores }} <b class="caret"></b></a>
                                     <ul role="menu" class="dropdown-menu">
